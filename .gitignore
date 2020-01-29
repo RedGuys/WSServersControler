@@ -1,0 +1,5 @@
+/.idea/
+*.crt
+*.bat
+node_modules
+*.key
