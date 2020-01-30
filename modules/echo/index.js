@@ -10,3 +10,7 @@ exports.onMessage = (message,ws) => {
     ws.send(message);
     console.log("I getted and recevived message: "+message);
 };
+
+exports.onClose = () => {
+    console.log("I'm closing");
+};

@@ -35,6 +35,11 @@ class Module {
                 module.onConnection(ws);
             }
         });
+        this.webSocket.on('close', function () {
+            if('onClose' in module) {
+                module.onClose();
+            }
+        });
     }
 }
 
