@@ -5,7 +5,6 @@ const Module = require("./libs/modules/Module");
 const https = require("https");
 const http = require("http");
 const fs = require("fs");
-const ws = require("ws");
 const url = require('url');
 
 logger.info("Reading config");
@@ -46,7 +45,6 @@ if(_config["automatic"]["useHttps"]) {
 
 
 
-tmp = null;
 if(_config["automatic"]["useHttps"]) {
     tmp = https.createServer(options);
 } else {
