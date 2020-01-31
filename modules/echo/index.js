@@ -3,6 +3,7 @@ exports.start = () => {
 };
 
 exports.onConnection = (ws) => {
+    ws.send("Hello!");
     console.log("Connected new client!");
 };
 
