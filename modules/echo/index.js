@@ -15,3 +15,7 @@ exports.onMessage = (message,ws) => {
 exports.onServerClose = () => {
     console.log("I'm closing");
 };
+
+exports.onClientClose = (code, reason) => {
+    console.log("Client disconnected with code "+code+" reason: "+reason);
+};

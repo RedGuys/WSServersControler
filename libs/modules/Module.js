@@ -30,6 +30,11 @@ class Module {
                     module.onMessage(message, ws);
                 }
             });
+            ws.on('close', function close(code,reason) {
+                if('onClientClose' in module) {
+                    module.onClientClose(code,reason);
+                }
+            });
             if('onConnection' in module) {
                 module.onConnection(ws);
             }
