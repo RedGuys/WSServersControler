@@ -1,8 +1,0 @@
-General:
-
-Https:
-  certPath: "certificate.crt"
-  keyPath: "private.key"
-  caPath: "ca_bundle.crt"
-Modules:
-  autostart:
