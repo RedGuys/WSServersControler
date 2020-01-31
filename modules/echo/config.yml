@@ -2,3 +2,5 @@ name: "echoExample"
 path: "/echo"
 runFile: "index"
 backlog: 50
+clientTracking: true
+maxPayload: 8192

@@ -18,6 +18,12 @@ class Module {
             if(this.config.getVariable("backlog") !== undefined) {
                 serverOptions["backlog"] = this.config.getVariable("backlog");
             }
+            if(this.config.getVariable("clientTracking") !== undefined) {
+                serverOptions["clientTracking"] = this.config.getVariable("clientTracking");
+            }
+            if(this.config.getVariable("maxPayload") !== undefined) {
+                serverOptions["maxPayload"] = this.config.getVariable("maxPayload");
+            }
             Logger.infoFromModule(moduleName, "Config loaded");
             this.webSocket = new WebSocket.Server(serverOptions);
         }
