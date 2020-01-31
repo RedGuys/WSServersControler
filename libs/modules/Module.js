@@ -7,11 +7,13 @@ class Module {
     constructor(moduleName) {
         Logger.infoFromModule(moduleName,"Loading config for module "+moduleName);
         this.name = moduleName;
+        this.techName = this.name;
         let stats = fs.statSync("./modules/"+moduleName+"/config.yml");
         if (!stats.isFile()) {
             Logger.errorFromModule(moduleName, "Config for " + moduleName + " not found!");
         } else {
             this.config = Config.LoadFile("modules/" + moduleName + "/config.yml", moduleName);
+            this.techName = this.config.getVariable("name");
             Logger.infoFromModule(moduleName, "Config loaded");
         }
     }
@@ -31,7 +33,7 @@ class Module {
         }
         this.webSocket = new WebSocket.Server(serverOptions);
         this.online = true;
-        Logger.infoFromModule(this.name,"Starting...");
+        Logger.infoFromModule(this.techName,"Starting...");
         this.module = require("../../modules/"+this.name+"/"+this.config.getVariable("runFile"));
         if('start' in this.module) {
             this.module.start();
@@ -66,7 +68,7 @@ class Module {
 
     stop() {
         this.online = false;
-        let moduleName = this.name;
+        let moduleName = this.techName;
         this.webSocket.close(function () {
             Logger.infoFromModule(moduleName,"Stopped...")
         });
@@ -77,7 +79,7 @@ class Module {
         delete this.config;
         delete this.module;
         delete this.webSocket;
-        Logger.infoFromModule(this.name,"Unloaded!");
+        Logger.infoFromModule(this.techName,"Unloaded!");
         delete this.name;
         delete this;
     }
