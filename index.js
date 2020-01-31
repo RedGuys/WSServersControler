@@ -122,6 +122,7 @@ consoleData.on("line",function (input) {
                     _modules.getModule(command[1]).start();
                 }
             }
+            break;
         case "stop":
             if(command.length <= 1) {
                 console.log("Ussage: stop (module name)");
@@ -132,6 +133,7 @@ consoleData.on("line",function (input) {
                     console.log("Module "+command[1]+" already stopt!");
                 }
             }
+            break;
         case "load":
             if(_modules.isLoaded(command[1])) {
                 console.log("Module "+command[1]+" already loaded!");
