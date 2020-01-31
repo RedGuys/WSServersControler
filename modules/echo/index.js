@@ -19,3 +19,7 @@ exports.onServerClose = () => {
 exports.onClientClose = (code, reason) => {
     console.log("Client disconnected with code "+code+" reason: "+reason);
 };
+
+exports.onError = (error) => {
+    console.log("Error! "+error);
+};

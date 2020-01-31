@@ -35,6 +35,11 @@ class Module {
                     module.onClientClose(code,reason);
                 }
             });
+            ws.on('error', function error(error) {
+                if('onError' in module) {
+                    module.onError(error);
+                }
+            });
             if('onConnection' in module) {
                 module.onConnection(ws);
             }
