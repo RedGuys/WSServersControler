@@ -3,3 +3,5 @@
 *.bat
 node_modules
 *.key
+/modules/
+!/modules/echo/
