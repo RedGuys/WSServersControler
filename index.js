@@ -39,7 +39,9 @@ let options = {};
 if(_config["automatic"]["useHttps"]) {
     options["cert"] = fs.readFileSync(_config["https"]["certPath"]);
     options["key"] = fs.readFileSync(_config["https"]["keyPath"]);
-    options["ca"] = fs.readFileSync(_config["https"]["caPath"]);
+    if(_config["https"]["caPath"] !== undefined) {
+        options["ca"] = fs.readFileSync(_config["https"]["caPath"]);
+    }
 }
 
 
