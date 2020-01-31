@@ -11,12 +11,20 @@ class ModulesList {
         return this.data[name];
     }
 
-    getOnlineModules() {
+    getOnlineModulesList() {
         let result = "";
         for (let key in this.data) {
             if(this.data[key].online === true) {
                 result += key+" ";
             }
+        }
+        return result;
+    }
+
+    getModulesList() {
+        let result = "";
+        for (let key in this.data) {
+            result += key+" ";
         }
         return result;
     }

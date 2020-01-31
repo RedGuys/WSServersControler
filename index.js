@@ -100,7 +100,11 @@ consoleData.on("line",function (input) {
                     case "modules":
                         switch (command[2]) {
                             case "online":
-                                console.log(_modules.getOnlineModules());
+                                console.log(_modules.getOnlineModulesList());
+                                break;
+                            case "all":
+                                console.log(_modules.getModulesList());
+                                break;
                         }
                 }
             }
