@@ -3,6 +3,7 @@ const logger = require("./libs/Logger");
 const configReader = require("./libs/Config");
 const Module = require("./libs/modules/Module");
 const https = require("https");
+const http = require("http");
 const fs = require("fs");
 const ws = require("ws");
 const url = require('url');
@@ -11,24 +12,45 @@ logger.info("Reading config");
 let _config = {};
 let _modules = ModulesList.create();
 let _paths = {};
+
 let config = configReader.LoadFile('config.yml',"main");
 let tmp = {};
+
 tmp["https"] = config.getConfigObject("Https");
 tmp["modules"] = config.getConfigObject("Modules");
-_config["https"] = {};
-_config["https"]["certPath"] = tmp["https"].getVariable("certPath");
-_config["https"]["keyPath"] = tmp["https"].getVariable("keyPath");
-_config["https"]["caPath"] = tmp["https"].getVariable("caPath");
+
+_config["automatic"] = {};
+_config["automatic"]["useHttps"] = false;
+
+if(tmp["https"] !== undefined) {
+    _config["https"] = {};
+    _config["https"]["certPath"] = tmp["https"].getVariable("certPath");
+    _config["https"]["keyPath"] = tmp["https"].getVariable("keyPath");
+    _config["https"]["caPath"] = tmp["https"].getVariable("caPath");
+    _config["automatic"]["useHttps"] = true;
+}
+
 _config["modules"] = {};
 _config["modules"]["autostart"] = tmp["modules"].getConfigArray("autostart");
 logger.info("Config readed");
 
 logger.info("Starting https server");
-const server = https.createServer({
-    cert: fs.readFileSync(_config["https"]["certPath"]),
-    key: fs.readFileSync(_config["https"]["keyPath"]),
-    ca: fs.readFileSync(_config["https"]["caPath"])
-});
+let options = {};
+if(_config["automatic"]["useHttps"]) {
+    options["cert"] = fs.readFileSync(_config["https"]["certPath"]);
+    options["key"] = fs.readFileSync(_config["https"]["keyPath"]);
+    options["ca"] = fs.readFileSync(_config["https"]["caPath"]);
+}
+
+
+
+tmp = null;
+if(_config["automatic"]["useHttps"]) {
+    tmp = https.createServer(options);
+} else {
+    tmp = http.createServer(options);
+}
+const server = tmp;
 logger.info("https server started!");
 
 logger.info("Starting autostart servers");

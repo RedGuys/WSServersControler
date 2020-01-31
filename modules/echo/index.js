@@ -9,7 +9,7 @@ exports.onConnection = (ws) => {
 
 exports.onMessage = (message,ws) => {
     ws.send(message);
-    console.log("I getted and recevived message: "+message);
+    console.log("I getted and received message: "+message);
 };
 
 exports.onServerClose = () => {
