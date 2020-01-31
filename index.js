@@ -6,6 +6,7 @@ const https = require("https");
 const http = require("http");
 const fs = require("fs");
 const url = require('url');
+const readline = require('readline');
 
 logger.info("Reading config");
 let _config = {};
@@ -83,3 +84,25 @@ server.on('upgrade', function upgrade(request, socket, head) {
 
 server.listen(8080);
 logger.info("Main server loaded");
+
+const consoleData = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+consoleData.on("line",function (input) {
+    let command = input.split(" ");
+    switch (command[0]) {
+        case "list":
+            if(command.length <= 2) {
+                console.log("Ussage: list [modules] [online/all]");
+            } else {
+                switch (command[1]) {
+                    case "modules":
+                        switch (command[2]) {
+                            case "online":
+                                console.log(_modules.getOnlineModules());
+                        }
+                }
+            }
+    }
+});

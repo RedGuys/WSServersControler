@@ -26,6 +26,7 @@ class Module {
             }
             Logger.infoFromModule(moduleName, "Config loaded");
             this.webSocket = new WebSocket.Server(serverOptions);
+            this.online = true;
         }
     }
 

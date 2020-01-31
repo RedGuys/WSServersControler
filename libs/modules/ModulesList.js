@@ -10,6 +10,16 @@ class ModulesList {
     getModule(name) {
         return this.data[name];
     }
+
+    getOnlineModules() {
+        let result = "";
+        for (let key in this.data) {
+            if(this.data[key].online === true) {
+                result += key+" ";
+            }
+        }
+        return result;
+    }
 }
 
 function create() {
