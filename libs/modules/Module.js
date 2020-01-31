@@ -74,10 +74,12 @@ class Module {
     }
 
     unload() {
-        delete this.name;
         delete this.config;
         delete this.module;
         delete this.webSocket;
+        Logger.infoFromModule(this.name,"Unloaded!");
+        delete this.name;
+        delete this;
     }
 }
 

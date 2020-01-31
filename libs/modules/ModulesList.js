@@ -46,6 +46,10 @@ class ModulesList {
         }
         return false;
     }
+
+    removeModule(moduleName) {
+        delete this.data[moduleName];
+    }
 }
 
 function create() {

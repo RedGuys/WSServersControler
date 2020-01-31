@@ -154,6 +154,7 @@ consoleData.on("line",function (input) {
                     _modules.getModule(command[1]).stop();
                 }
                 _modules.getModule(command[1]).unload();
+                _modules.removeModule(command[1]);
             } else {
                 console.log("Module already unloaded!");
             }
