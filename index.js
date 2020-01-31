@@ -93,18 +93,16 @@ consoleData.on("line",function (input) {
     let command = input.split(" ");
     switch (command[0]) {
         case "list":
-            if(command.length <= 2) {
-                console.log("Ussage: list [modules] [online/all]");
+            if(command.length <= 1) {
+                console.log("Ussage: list [online/all]");
             } else {
-                if (command[1] === "modules") {
-                    switch (command[2]) {
-                        case "online":
-                            console.log(_modules.getOnlineModulesList());
-                            break;
-                        case "all":
-                            console.log(_modules.getModulesList());
-                            break;
-                    }
+                switch (command[1]) {
+                    case "online":
+                        console.log(_modules.getOnlineModulesList());
+                        break;
+                    case "all":
+                        console.log(_modules.getModulesList());
+                        break;
                 }
             }
             break;
