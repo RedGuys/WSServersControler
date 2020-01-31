@@ -17,6 +17,7 @@ let tmp = {};
 
 tmp["https"] = config.getConfigObject("Https");
 tmp["modules"] = config.getConfigObject("Modules");
+tmp["general"] = config.getConfigObject("General");
 
 _config["automatic"] = {};
 _config["automatic"]["useHttps"] = false;
@@ -60,7 +61,9 @@ for (let i = 0; i < _config["modules"]["autostart"].getLength(); i++) {
     _modules.getModule(module.getElementById(i)).start();
     _paths[_modules.getModule(module.getElementById(i)).config.getVariable("path")] = module.getElementById(i);
 }
+logger.info("Autostart modules loaded");
 
+logger.info("Start Main Server");
 server.on('upgrade', function upgrade(request, socket, head) {
     const pathname = url.parse(request.url).pathname;
 
@@ -79,3 +82,4 @@ server.on('upgrade', function upgrade(request, socket, head) {
 });
 
 server.listen(8080);
+logger.info("Main server loaded");

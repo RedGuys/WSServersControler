@@ -12,8 +12,14 @@ class Module {
             Logger.errorFromModule(moduleName, "Config for " + moduleName + " not found!");
         } else {
             this.config = Config.LoadFile("modules/" + moduleName + "/config.yml", moduleName);
+            let serverOptions = {
+                noServer:true
+            };
+            if(this.config.getVariable("backlog") !== undefined) {
+                serverOptions["backlog"] = this.config.getVariable("backlog");
+            }
             Logger.infoFromModule(moduleName, "Config loaded");
-            this.webSocket = new WebSocket.Server({noServer:true});
+            this.webSocket = new WebSocket.Server(serverOptions);
         }
     }
 

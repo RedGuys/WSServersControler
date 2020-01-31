@@ -1,3 +1,5 @@
+General:
+
 Https:
   certPath: "certificate.crt"
   keyPath: "private.key"
