@@ -6,4 +6,3 @@ Https:
   caPath: "ca_bundle.crt"
 Modules:
   autostart:
-    - echo

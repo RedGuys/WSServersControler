@@ -59,8 +59,8 @@ logger.info("Starting autostart servers");
 for (let i = 0; i < _config["modules"]["autostart"].getLength(); i++) {
     let module = _config["modules"]["autostart"];
     _modules.addModule(module.getElementById(i),Module.load(_config["modules"]["autostart"].getElementById(i)));
-    _modules.getModule(module.getElementById(i)).start();
     _paths[_modules.getModule(module.getElementById(i)).config.getVariable("path")] = module.getElementById(i);
+    _modules.getModule(module.getElementById(i)).start();
 }
 logger.info("Autostart modules loaded");
 
@@ -96,16 +96,32 @@ consoleData.on("line",function (input) {
             if(command.length <= 2) {
                 console.log("Ussage: list [modules] [online/all]");
             } else {
-                switch (command[1]) {
-                    case "modules":
-                        switch (command[2]) {
-                            case "online":
-                                console.log(_modules.getOnlineModulesList());
-                                break;
-                            case "all":
-                                console.log(_modules.getModulesList());
-                                break;
-                        }
+                if (command[1] === "modules") {
+                    switch (command[2]) {
+                        case "online":
+                            console.log(_modules.getOnlineModulesList());
+                            break;
+                        case "all":
+                            console.log(_modules.getModulesList());
+                            break;
+                    }
+                }
+            }
+            break;
+        case "start":
+            if(command.length <= 1) {
+                console.log("Ussage: start (module name)");
+            } else {
+                if(_modules.isLoaded(command[1])) {
+                    if(_modules.isOnline(command[1])) {
+                        console.log("Module "+command[1]+" already online");
+                    } else {
+                        _modules.getModule(command[1]).start();
+                    }
+                } else {
+                    _modules.addModule(command[1],Module.load(command[1]));
+                    _paths[_modules.getModule(command[1]).config.getVariable("path")] = command[1];
+                    _modules.getModule(command[1]).start();
                 }
             }
     }

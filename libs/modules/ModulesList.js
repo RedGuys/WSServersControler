@@ -28,6 +28,24 @@ class ModulesList {
         }
         return result;
     }
+
+    isLoaded(moduleName) {
+        for (let key in this.data) {
+            if(key === moduleName) {
+                return true
+            }
+        }
+        return false;
+    }
+
+    isOnline(moduleName) {
+        for (let key in this.data) {
+            if(key === moduleName) {
+                return this.data[key].online;
+            }
+        }
+        return false;
+    }
 }
 
 function create() {

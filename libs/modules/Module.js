@@ -5,32 +5,32 @@ const WebSocket = require('ws');
 
 class Module {
     constructor(moduleName) {
-        Logger.infoFromModule(moduleName,"Starting load module "+moduleName);
+        Logger.infoFromModule(moduleName,"Loading config for module "+moduleName);
         this.name = moduleName;
         let stats = fs.statSync("./modules/"+moduleName+"/config.yml");
         if (!stats.isFile()) {
             Logger.errorFromModule(moduleName, "Config for " + moduleName + " not found!");
         } else {
             this.config = Config.LoadFile("modules/" + moduleName + "/config.yml", moduleName);
-            let serverOptions = {
-                noServer:true
-            };
-            if(this.config.getVariable("backlog") !== undefined) {
-                serverOptions["backlog"] = this.config.getVariable("backlog");
-            }
-            if(this.config.getVariable("clientTracking") !== undefined) {
-                serverOptions["clientTracking"] = this.config.getVariable("clientTracking");
-            }
-            if(this.config.getVariable("maxPayload") !== undefined) {
-                serverOptions["maxPayload"] = this.config.getVariable("maxPayload");
-            }
             Logger.infoFromModule(moduleName, "Config loaded");
-            this.webSocket = new WebSocket.Server(serverOptions);
-            this.online = true;
         }
     }
 
     start() {
+        let serverOptions = {
+            noServer:true
+        };
+        if(this.config.getVariable("backlog") !== undefined) {
+            serverOptions["backlog"] = this.config.getVariable("backlog");
+        }
+        if(this.config.getVariable("clientTracking") !== undefined) {
+            serverOptions["clientTracking"] = this.config.getVariable("clientTracking");
+        }
+        if(this.config.getVariable("maxPayload") !== undefined) {
+            serverOptions["maxPayload"] = this.config.getVariable("maxPayload");
+        }
+        this.webSocket = new WebSocket.Server(serverOptions);
+        this.online = true;
         Logger.infoFromModule(this.name,"Starting...");
         this.module = require("../../modules/"+this.name+"/"+this.config.getVariable("runFile"));
         if('start' in this.module) {

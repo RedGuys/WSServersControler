@@ -38,6 +38,7 @@ class ConfigArray {
     }
 
     getLength() {
+        if(this.data === null) return 0;
         return this.data.length;
     }
 }
