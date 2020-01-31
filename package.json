@@ -1,5 +1,5 @@
 {
-  "name": "WSServersControler",
+  "name": "wsservers_controler",
   "version": "1.0.0",
   "description": "Node.js applacation to control and work many WS Servers.",
   "main": "index.js",
