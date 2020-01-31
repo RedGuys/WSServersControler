@@ -2,7 +2,6 @@ const Logger = require("../Logger");
 const fs = require("fs");
 const Config = require("../Config");
 const WebSocket = require('ws');
-const http = require('http');
 
 class Module {
     constructor(moduleName) {
@@ -36,8 +35,8 @@ class Module {
             }
         });
         this.webSocket.on('close', function () {
-            if('onClose' in module) {
-                module.onClose();
+            if('onServerClose' in module) {
+                module.onServerClose();
             }
         });
     }

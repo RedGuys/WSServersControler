@@ -11,6 +11,6 @@ exports.onMessage = (message,ws) => {
     console.log("I getted and recevived message: "+message);
 };
 
-exports.onClose = () => {
+exports.onServerClose = () => {
     console.log("I'm closing");
 };
