@@ -122,5 +122,39 @@ consoleData.on("line",function (input) {
                     _modules.getModule(command[1]).start();
                 }
             }
+        case "stop":
+            if(command.length <= 1) {
+                console.log("Ussage: stop (module name)");
+            } else {
+                if(_modules.isOnline(command[1])) {
+                    _modules.getModule(command[1]).stop();
+                } else {
+                    console.log("Module "+command[1]+" already stopt!");
+                }
+            }
+        case "load":
+            if(_modules.isLoaded(command[1])) {
+                console.log("Module "+command[1]+" already loaded!");
+            } else {
+                for (let key in _paths) {
+                    if (_paths[key] === command[1]) {
+                        delete _paths[key];
+                        break;
+                    }
+                }
+                _modules.addModule(command[1], Module.load(command[1]));
+                _paths[_modules.getModule(command[1]).config.getVariable("path")] = command[1];
+            }
+            break;
+        case "unload":
+            if(_modules.isLoaded(command[1])) {
+                if(_modules.isOnline(command[1])) {
+                    _modules.getModule(command[1]).stop();
+                }
+                _modules.getModule(command[1]).unload();
+            } else {
+                console.log("Module already unloaded!");
+            }
+            break;
     }
 });

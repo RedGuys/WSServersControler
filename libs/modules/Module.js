@@ -63,6 +63,22 @@ class Module {
             }
         });
     }
+
+    stop() {
+        this.online = false;
+        let moduleName = this.name;
+        this.webSocket.close(function () {
+            Logger.infoFromModule(moduleName,"Stopped...")
+        });
+        this.webSocket = null;
+    }
+
+    unload() {
+        delete this.name;
+        delete this.config;
+        delete this.module;
+        delete this.webSocket;
+    }
 }
 
 function load(moduleName) {
