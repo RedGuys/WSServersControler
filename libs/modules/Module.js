@@ -59,9 +59,13 @@ class Module {
                 module.onConnection(ws);
             }
         });
+        let self = this;
         this.webSocket.on('close', function () {
-            if ('onServerClose' in module) {
-                module.onServerClose();
+            if(!self.manuallyStopt) {
+                self.manuallyStopt = false;
+                if ('onServerClose' in module) {
+                    module.onServerClose();
+                }
             }
         });
     }
@@ -77,6 +81,7 @@ class Module {
         if ('onServerManuallyClose' in this.module) {
             this.module.onServerManuallyClose();
         }
+        this.manuallyStopt = true;
         this.webSocket.close(cb());
         while (waiter) {
 
