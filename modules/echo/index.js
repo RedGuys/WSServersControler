@@ -16,6 +16,10 @@ exports.onServerClose = () => {
     console.log("I'm closing");
 };
 
+exports.onServerManuallyClose = () => {
+    console.log("I'm closing from console");
+};
+
 exports.onClientClose = (code, reason) => {
     console.log("Client disconnected with code "+code+" reason: "+reason);
 };

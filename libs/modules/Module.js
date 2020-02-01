@@ -60,18 +60,27 @@ class Module {
             }
         });
         this.webSocket.on('close', function () {
-            if('onServerClose' in module) {
+            if ('onServerClose' in module) {
                 module.onServerClose();
             }
         });
     }
 
     stop() {
+        let waiter = true;
+        function cb() {
+            Logger.infoFromModule(moduleName,"Stopped...");
+            waiter = false;
+        }
         this.online = false;
         let moduleName = this.techName;
-        this.webSocket.close(function () {
-            Logger.infoFromModule(moduleName,"Stopped...")
-        });
+        if ('onServerManuallyClose' in this.module) {
+            this.module.onServerManuallyClose();
+        }
+        this.webSocket.close(cb());
+        while (waiter) {
+
+        }
         this.webSocket = null;
     }
 

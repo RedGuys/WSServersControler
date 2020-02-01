@@ -159,5 +159,17 @@ consoleData.on("line",function (input) {
                 console.log("Module already unloaded!");
             }
             break;
+        case "reload":
+            if(_modules.isLoaded(command[1])) {
+                if(_modules.isOnline(command[1])) {
+                    _modules.getModule(command[1]).stop();
+                }
+                _modules.getModule(command[1]).unload();
+                _modules.removeModule(command[1]);
+            }
+            _modules.addModule(command[1],Module.load(command[1]));
+            _paths[_modules.getModule(command[1]).config.getVariable("path")] = command[1];
+            _modules.getModule(command[1]).start();
+            break;
     }
 });
