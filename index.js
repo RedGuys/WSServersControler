@@ -1,51 +1,18 @@
 const ModulesList = require("./libs/modules/ModulesList");
 const logger = require("./libs/Logger");
-const configReader = require("./libs/Config");
 const Module = require("./libs/modules/Module");
 const https = require("https");
 const http = require("http");
 const fs = require("fs");
 const url = require('url');
 const readline = require('readline');
+const {cnfParser} = require("./libs/ParseConfig");
 
-logger.info("Reading config");
-let _config = {};
-let _modules = ModulesList.create();
-let _paths = {};
-
-let config = configReader.LoadFile('config.yml',"main");
-let tmp = {};
-
-tmp["https"] = config.getConfigObject("Https");
-tmp["modules"] = config.getConfigObject("Modules");
-tmp["general"] = config.getConfigObject("General");
-
-_config["automatic"] = {};
-_config["automatic"]["useHttps"] = false;
-
-if(tmp["https"] !== undefined) {
-    _config["https"] = {};
-    _config["https"]["certPath"] = tmp["https"].getVariable("certPath");
-    _config["https"]["keyPath"] = tmp["https"].getVariable("keyPath");
-    _config["https"]["caPath"] = tmp["https"].getVariable("caPath");
-    _config["automatic"]["useHttps"] = true;
-}
-
-_config["modules"] = {};
-_config["modules"]["autostart"] = tmp["modules"].getConfigArray("autostart");
-logger.info("Config readed");
-
-logger.info("Starting https server");
-let options = {};
-if(_config["automatic"]["useHttps"]) {
-    options["cert"] = fs.readFileSync(_config["https"]["certPath"]);
-    options["key"] = fs.readFileSync(_config["https"]["keyPath"]);
-    if(_config["https"]["caPath"] !== undefined) {
-        options["ca"] = fs.readFileSync(_config["https"]["caPath"]);
-    }
-}
-
-
+let cfgParser = new cnfParser();
+let _config = cfgParser._config;
+let _modules = cfgParser._modules;
+let _paths = cfgParser._paths;
+let options = cfgParser.options;
 
 if(_config["automatic"]["useHttps"]) {
     tmp = https.createServer(options);
@@ -82,7 +49,7 @@ server.on('upgrade', function upgrade(request, socket, head) {
     }
 });
 
-server.listen(8080);
+server.listen(_config["general"]["port"]);
 logger.info("Main server loaded");
 
 const consoleData = readline.createInterface({
