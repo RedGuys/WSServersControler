@@ -61,7 +61,7 @@ consoleData.on("line",function (input) {
     switch (command[0]) {
         case "list":
             if(command.length <= 1) {
-                console.log("Ussage: list [online/all]");
+                console.log("Usage: list [online/all]");
             } else {
                 switch (command[1]) {
                     case "online":
@@ -75,7 +75,7 @@ consoleData.on("line",function (input) {
             break;
         case "start":
             if(command.length <= 1) {
-                console.log("Ussage: start (module name)");
+                console.log("Usage: start (module name)");
             } else {
                 if(_modules.isLoaded(command[1])) {
                     if(_modules.isOnline(command[1])) {
@@ -92,7 +92,7 @@ consoleData.on("line",function (input) {
             break;
         case "stop":
             if(command.length <= 1) {
-                console.log("Ussage: stop (module name)");
+                console.log("Usage: stop (module name)");
             } else {
                 if(_modules.isOnline(command[1])) {
                     _modules.getModule(command[1]).stop();

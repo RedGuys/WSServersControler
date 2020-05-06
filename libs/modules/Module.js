@@ -31,6 +31,7 @@ class Module {
         if(this.config.getVariable("maxPayload") !== undefined) {
             serverOptions["maxPayload"] = this.config.getVariable("maxPayload");
         }
+        // noinspection JSCheckFunctionSignatures
         this.webSocket = new WebSocket.Server(serverOptions);
         this.online = true;
         Logger.infoFromModule(this.techName,"Starting...");
@@ -82,7 +83,7 @@ class Module {
             this.module.onServerManuallyClose();
         }
         this.manuallyStopt = true;
-        this.webSocket.close(cb());
+        this.webSocket.close(cb);
         while (waiter) {
 
         }
