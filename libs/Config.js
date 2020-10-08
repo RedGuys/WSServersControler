@@ -18,6 +18,10 @@ class ConfigObject {
     getConfigArray(name) {
         return new ConfigArray(this.data[name]);
     }
+
+    isDataAvailable() {
+        return this.data !== undefined;
+    }
 }
 
 class ConfigArray {

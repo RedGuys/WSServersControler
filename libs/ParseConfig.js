@@ -21,7 +21,7 @@ class cnfParser {
         this._config["general"] = {};
         this._config["general"]["port"] = 8080;
 
-        if(tmp["https"] !== undefined) {
+        if(tmp["general"].isDataAvailable()) {
             if(tmp["general"]["port"] !== undefined) {
                 this._config["general"]["port"] = tmp["general"]["port"];
             }
@@ -30,7 +30,7 @@ class cnfParser {
         this._config["automatic"] = {};
         this._config["automatic"]["useHttps"] = false;
 
-        if(tmp["https"] !== undefined) {
+        if(tmp["https"].isDataAvailable()) {
             this._config["https"] = {};
             this._config["https"]["certPath"] = tmp["https"].getVariable("certPath");
             this._config["https"]["keyPath"] = tmp["https"].getVariable("keyPath");
@@ -42,8 +42,8 @@ class cnfParser {
         this._config["modules"]["autostart"] = tmp["modules"].getConfigArray("autostart");
         logger.info("Config readed");
 
-        logger.info("Starting https server");
         if(this._config["automatic"]["useHttps"]) {
+            logger.info("Starting https server");
             this.options["cert"] = fs.readFileSync(this._config["https"]["certPath"]);
             this.options["key"] = fs.readFileSync(this._config["https"]["keyPath"]);
             if(this._config["https"]["caPath"] !== undefined) {

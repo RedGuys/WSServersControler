@@ -1,9 +1,7 @@
-const ModulesList = require("./libs/modules/ModulesList");
 const logger = require("./libs/Logger");
 const Module = require("./libs/modules/Module");
 const https = require("https");
 const http = require("http");
-const fs = require("fs");
 const url = require('url');
 const readline = require('readline');
 const {cnfParser} = require("./libs/ParseConfig");
@@ -14,13 +12,15 @@ let _modules = cfgParser._modules;
 let _paths = cfgParser._paths;
 let options = cfgParser.options;
 
+let tmp;
 if(_config["automatic"]["useHttps"]) {
     tmp = https.createServer(options);
+    logger.info("https server started!");
 } else {
     tmp = http.createServer(options);
+    logger.info("http server started!");
 }
 const server = tmp;
-logger.info("https server started!");
 
 logger.info("Starting autostart servers");
 for (let i = 0; i < _config["modules"]["autostart"].getLength(); i++) {
