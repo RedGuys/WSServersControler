@@ -1,29 +1,33 @@
-exports.start = () => {
-    console.log("I'm started!");
-};
+class echo {
+    start() {
+        console.log("I'm started!");
+    }
 
-exports.onConnection = (ws) => {
-    ws.send("Hello!");
-    console.log("Connected new client!");
-};
+    onConnection(ws) {
+        ws.send("Hello!");
+        console.log("Connected new client!");
+    }
 
-exports.onMessage = (message,ws) => {
-    ws.send(message);
-    console.log("I getted and received message: "+message);
-};
+    onMessage(message,ws) {
+        ws.send(message);
+        console.log("I getted and received message: "+message);
+    }
 
-exports.onServerClose = () => {
-    console.log("I'm closing");
-};
+    onServerClose() {
+        console.log("I'm closing");
+    }
 
-exports.onServerManuallyClose = () => {
-    console.log("I'm closing from console");
-};
+    onServerManuallyClose() {
+        console.log("I'm closing from console");
+    }
 
-exports.onClientClose = (code, reason) => {
-    console.log("Client disconnected with code "+code+" reason: "+reason);
-};
+    onClientClose(code, reason) {
+        console.log("Client disconnected with code "+code+" reason: "+reason);
+    }
 
-exports.onError = (error) => {
-    console.log("Error! "+error);
-};
+    onError(error) {
+        console.log("Error! "+error);
+    }
+}
+
+module.exports = echo;

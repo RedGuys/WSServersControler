@@ -53,4 +53,4 @@ class cnfParser {
     }
 }
 
-module.exports.cnfParser = cnfParser;
+module.exports = cnfParser;

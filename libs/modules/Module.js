@@ -35,7 +35,7 @@ class Module {
         this.webSocket = new WebSocket.Server(serverOptions);
         this.online = true;
         Logger.infoFromModule(this.techName,"Starting...");
-        this.module = require("../../modules/"+this.name+"/"+this.config.getVariable("runFile"));
+        this.module = new (require("../../modules/"+this.name+"/"+this.config.getVariable("runFile")));
         if('start' in this.module) {
             this.module.start();
         }

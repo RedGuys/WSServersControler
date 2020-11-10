@@ -1,34 +1,38 @@
-exports.info = (message) => {
-    let result = "["+getStrDate()+"] (info): "+message;
-    console.info(result);
-};
+class Logger {
+    static info(message){
+        let result = "["+this.getStrDate()+"] (info): "+message;
+        console.info(result);
+    }
 
-exports.warning = (message) => {
-    let result = "["+getStrDate()+"] (Warning): "+message;
-    console.warn(result);
-};
+    static warning(message) {
+        let result = "["+this.getStrDate()+"] (Warning): "+message;
+        console.warn(result);
+    }
 
-exports.error = (message) => {
-    let result = "["+getStrDate()+"] (error): "+message;
-    console.error(result);
-};
+    static error(message) {
+        let result = "["+this.getStrDate()+"] (error): "+message;
+        console.error(result);
+    }
 
-exports.taggedMessage = (tag,message) => {
-    let result = "["+getStrDate()+"] ("+tag+"): "+message;
-    console.log(result);
-};
+    static taggedMessage(tag,message) {
+        let result = "["+this.getStrDate()+"] ("+tag+"): "+message;
+        console.log(result);
+    }
 
-exports.infoFromModule = (module,message) => {
-    let result = "["+getStrDate()+"] (info) ["+module+"]: "+message;
-    console.info(result);
-};
+    static infoFromModule(module,message) {
+        let result = "["+this.getStrDate()+"] (info) ["+module+"]: "+message;
+        console.info(result);
+    }
 
-exports.errorFromModule = (module,error) => {
-    let result = "["+getStrDate()+"] (error) ["+module+"]: "+error;
-    console.error(result);
-};
+    static errorFromModule(module,error) {
+        let result = "["+this.getStrDate()+"] (error) ["+module+"]: "+error;
+        console.error(result);
+    }
 
-function getStrDate() {
-    let date = new Date();
-    return date.getFullYear()+"."+(date.getMonth()+1)+"."+date.getDay()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds();
+    static getStrDate() {
+        let date = new Date();
+        return date.getFullYear()+"."+(date.getMonth()+1)+"."+date.getDay()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds();
+    }
 }
+
+module.exports = Logger;

@@ -4,13 +4,13 @@ const https = require("https");
 const http = require("http");
 const url = require('url');
 const readline = require('readline');
-const {cnfParser} = require("./libs/ParseConfig");
+const ConfigParser = require("./libs/ParseConfig");
 
-let cfgParser = new cnfParser();
-let _config = cfgParser._config;
-let _modules = cfgParser._modules;
-let _paths = cfgParser._paths;
-let options = cfgParser.options;
+let Config = new ConfigParser();
+let _config = Config._config;
+let _modules = Config._modules;
+let _paths = Config._paths;
+let options = Config.options;
 
 let tmp;
 if(_config["automatic"]["useHttps"]) {

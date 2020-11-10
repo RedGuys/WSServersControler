@@ -22,11 +22,7 @@ class ModulesList {
     }
 
     getModulesList() {
-        let result = "";
-        for (let key in this.data) {
-            result += key+" ";
-        }
-        return result;
+        return this.data.join(" ");
     }
 
     isLoaded(moduleName) {
