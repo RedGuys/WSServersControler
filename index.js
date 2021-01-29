@@ -2,7 +2,6 @@ const logger = require("./libs/Logger");
 const Module = require("./libs/modules/Module");
 const https = require("https");
 const http = require("http");
-const url = require('url');
 const readline = require('readline');
 const ConfigParser = require("./libs/ParseConfig");
 
@@ -33,18 +32,18 @@ logger.info("Autostart modules loaded");
 
 logger.info("Start Main Server");
 server.on('upgrade', function upgrade(request, socket, head) {
-    const pathname = url.parse(request.url).pathname;
+    const pathname = new URL(request.url).pathname;
 
-    let finded = false;
+    let funded = false;
     for (let pathsKey in _paths) {
         if(pathsKey === pathname) {
             _modules.getModule(_paths[pathsKey]).webSocket.handleUpgrade(request, socket, head, function done(ws) {
                 _modules.getModule(_paths[pathsKey]).webSocket.emit('connection', ws, request);
-                finded = true;
+                funded = true;
             });
         }
     }
-    if(!finded) {
+    if(!funded) {
         socket.destroy();
     }
 });
@@ -97,7 +96,7 @@ consoleData.on("line",function (input) {
                 if(_modules.isOnline(command[1])) {
                     _modules.getModule(command[1]).stop();
                 } else {
-                    console.log("Module "+command[1]+" already stopt!");
+                    console.log("Module "+command[1]+" already stop!");
                 }
             }
             break;
