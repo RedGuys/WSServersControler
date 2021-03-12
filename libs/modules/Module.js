@@ -71,7 +71,7 @@ class Module {
         });
     }
 
-    stop() {
+    stop(code, data) {
         let waiter = true;
         function cb() {
             Logger.infoFromModule(moduleName,"Stopped...");
@@ -83,7 +83,7 @@ class Module {
             this.module.onServerManuallyClose();
         }
         this.manuallyStopt = true;
-        this.webSocket.close(cb);
+        this.webSocket.close(cb, "");
         while (waiter) {
 
         }

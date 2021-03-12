@@ -40,7 +40,7 @@ class cnfParser {
 
         this._config["modules"] = {};
         this._config["modules"]["autostart"] = tmp["modules"].getConfigArray("autostart");
-        logger.info("Config readed");
+        logger.info("Config read finished!");
 
         if(this._config["automatic"]["useHttps"]) {
             logger.info("Starting https server");

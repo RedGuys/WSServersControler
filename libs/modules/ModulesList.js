@@ -14,8 +14,10 @@ class ModulesList {
     getOnlineModulesList() {
         let result = "";
         for (let key in this.data) {
-            if(this.data[key].online === true) {
-                result += key+" ";
+            if(this.data.hasOwnProperty(key)) {
+                if (this.data[key].online === true) {
+                    result += key + " ";
+                }
             }
         }
         return result;
@@ -36,8 +38,10 @@ class ModulesList {
 
     isOnline(moduleName) {
         for (let key in this.data) {
-            if(key === moduleName) {
-                return this.data[key].online;
+            if(this.data.hasOwnProperty(key)) {
+                if (key === moduleName) {
+                    return this.data[key].online;
+                }
             }
         }
         return false;
