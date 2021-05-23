@@ -10,7 +10,7 @@ class echo {
 
     onMessage(message,ws) {
         ws.send(message);
-        console.log("I getted and received message: "+message);
+        console.log("I got and send message: "+message);
     }
 
     onServerClose() {
